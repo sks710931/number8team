@@ -1,4 +1,5 @@
 import { makeStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { ReactElement } from "react";
@@ -11,6 +12,9 @@ const SlideImage = styled.img`
   width: 100%;
   height: 65vh;
   object-fit: cover;
+  @media only screen and (max-width: 900px){
+    height: 50vh;
+}
 `;
 
 const StyledSlider = styled.div`
@@ -66,17 +70,23 @@ export const Home = (): ReactElement => {
     )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
     main: {
         color: '#ffffff',
         fontSize: '35px',
         textAlign:'center',
         padding: '25% 0',
-        width: '90%'
+        width: '90%',
+        [theme.breakpoints.down(900)]: {
+            width: '100%',
+        }
     },
     arrow: {
         color: '#ffffff',
         fontSize: '35px',
-        padding: '10px'
+        padding: '10px',
+        [theme.breakpoints.down(900)]: {
+            fontSize: '25px',
+        }
     }
 }))

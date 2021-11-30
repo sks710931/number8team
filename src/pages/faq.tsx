@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { makeStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -39,17 +40,26 @@ export const Faq = (): ReactElement => {
     )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
     header: {
         color: '#0000ff',
         fontSize: '30px',
         textAlign:'center',
+        [theme.breakpoints.down(900)]: {
+            fontSize: '25px',
+            paddingBottom: '10px'
+        }
     },
     faq: {
         margin: '25px auto 25px auto',
         backgroundColor: '#000000',
         width: '70%',
         height: '100px',
+        [theme.breakpoints.down(900)]: {
+            width: '90%',
+            marginLeft: '30px',
+            paddingBottom: '10px'
+        }
     },
     txt:{
         color: '#ffffff',

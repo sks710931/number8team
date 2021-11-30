@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactElement } from "react";
 import { makeStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -37,13 +38,17 @@ export const Team = (): ReactElement => {
     )
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
     header: {
         color: '#0000ff',
         fontSize: '30px',
         textAlign: 'center',
         fontWeight: '300',
-        height: '35px'
+        height: '35px',
+        [theme.breakpoints.down(900)]: {
+            fontSize: '25px',
+            paddingBottom: '10px'
+        }
     },
     imgdiv: {
         width: '100%',
@@ -55,6 +60,10 @@ const useStyles = makeStyles(() => ({
         maxWidth: '350px',
         maxHeight: '350px',
         objectFit: 'cover',
+        [theme.breakpoints.down(900)]: {
+            width: '75%',
+            marginLeft: '10px'
+        }
     },
     bodytxt: {
         paddingTop: '5px',
@@ -62,6 +71,11 @@ const useStyles = makeStyles(() => ({
         fontSize: '30px',
         textAlign: 'center',
         fontWeight: '300',
-        height: '35px'
+        height: '35px',
+        [theme.breakpoints.down(900)]: {
+            fontSize: '25px',
+            paddingTop: '25px',
+            padding: '15px',
+        }
     }
 }))
