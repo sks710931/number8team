@@ -12,11 +12,9 @@ export const Layout = ({children}: Props): ReactElement<Props> => {
         <div>
             <div className={classes.pages}>
             <Navbar/>
-            <main>
-                <div className={classes.content}>
-                    {children}
-                </div>
-            </main>
+            <div className={classes.content}>
+                {children}
+            </div>
             </div>
         </div>
     )
@@ -29,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
     },
     content: {
-        marginTop: '140px',
+        marginTop: 'calc(140px + 3%)',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     }
 }))

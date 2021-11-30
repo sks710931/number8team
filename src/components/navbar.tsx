@@ -44,7 +44,7 @@ export const Navbar = () => {
 const useStyles = makeStyles((theme: Theme) => ({
     nav: {
         position: 'fixed',
-        top: 0,
+        top: 15,
         width: '100%',
         height: '120px',
         backgroundColor: '#ed3093',
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
     },
     btn: {
-        marginTop: '60px',
+        marginTop: '55px',
         display: 'block',
         marginLeft: '20px',
         height: '50px',
