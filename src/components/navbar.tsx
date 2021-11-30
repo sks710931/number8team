@@ -23,9 +23,10 @@ export const Navbar = () => {
         return () => {
             window.removeEventListener('resize', changeWidth)
         }
-    }, [])
+    }, []);
 
-    const toggleNav = () => {
+    const toggleNav = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
         setToggleMenu(!toggleMenu)
     }
     return (
