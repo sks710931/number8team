@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: '35px',
         [theme.breakpoints.down(900)]: {
             fontSize: '25px',
-            paddingBottom: '10px'
+            paddingBottom: '10px',
+            marginInlineStart: '10px'
         }
     },
     imgdiv: {

@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '90%',
         [theme.breakpoints.down(900)]: {
             width: '100%',
+            padding: '18% 0',
         }
     },
     arrow: {

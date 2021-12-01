@@ -32,7 +32,7 @@ export const Navbar = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
-      };
+    };
     return (
       <nav className={classes.nav}>
             <div className={classes.navbar}>
@@ -50,9 +50,6 @@ export const Navbar = () => {
                     {
                         (screenWidth < 900) && (
                             <IconButton
-                                aria-label="more"
-                                id="long-button"
-                                aria-controls="long-menu"
                                 aria-expanded={open ? 'true' : undefined}
                                 aria-haspopup="true"
                                 onClick={handleClick}
@@ -66,7 +63,7 @@ export const Navbar = () => {
                     id="basic-menu"
                     anchorEl={anchorEl}
                     open={open}
-                    onClose={handleClick}
+                    onClose={handleClose}
                     MenuListProps={{
                     'aria-labelledby': 'basic-button',
                     }}
@@ -103,8 +100,8 @@ export const Navbar = () => {
 
 const useStyles = makeStyles((theme: Theme) => ({
     nav: {
-        position: 'fixed',
-        top: 0,
+        // position: 'fixed',
+        // top: 0,
         width: '100%',
         height: '120px',
         backgroundColor: '#ed3093',
