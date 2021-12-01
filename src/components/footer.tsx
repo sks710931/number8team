@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         left: '70%',
         bottom: '7%',
         display: 'flex',
-        [theme.breakpoints.down(900)]: {
+        [theme.breakpoints.down(1050)]: {
             left: '0',
             bottom: '2%',
             justifyContent: 'center'

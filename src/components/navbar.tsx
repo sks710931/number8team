@@ -4,12 +4,13 @@ import { makeStyles } from "@mui/styles";
 import { Link, useNavigate } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import logo from '../assests/logo.png';
 
 export const Navbar = () => {
     let navigate = useNavigate();
     const classes = useStyles();
-    const [toggleMenu, setToggleMenu] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,15 +26,18 @@ export const Navbar = () => {
         }
     }, []);
 
-    const toggleNav = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
-        setToggleMenu(!toggleMenu)
-    }
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+      };
     return (
       <nav className={classes.nav}>
             <div className={classes.navbar}>
                 <img src={logo} className={classes.logo} alt="logo" onClick={() => navigate('/')}/>
-                {(toggleMenu || screenWidth > 900) && (
+                {(screenWidth > 900) && (
                     <ul className={classes.list}>
                         <li><Link to='/townhall' className={classes.items}> town hall </Link></li>
                         <li><Link to='/roadmap' className={classes.items}> road map </Link></li>
@@ -51,13 +55,47 @@ export const Navbar = () => {
                                 aria-controls="long-menu"
                                 aria-expanded={open ? 'true' : undefined}
                                 aria-haspopup="true"
-                                onClick={toggleNav}
+                                onClick={handleClick}
                             >
                                 <MoreVertIcon className={classes.menu}/>
                             </IconButton>
                         )
                     }
                 </div>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClick}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem
+                        component={Link} to="/townhall"
+                        onClick={handleClose}
+                    >
+                        Townhall
+                    </MenuItem>
+                    <MenuItem
+                        component={Link} to="/roadmap"
+                        onClick={handleClose}
+                    >
+                        Roadmap
+                    </MenuItem>
+                    <MenuItem
+                        component={Link} to="/team"
+                        onClick={handleClose}
+                    >
+                        Team
+                    </MenuItem>
+                    <MenuItem
+                        component={Link} to="/faq"
+                        onClick={handleClose}
+                    >
+                        Faq
+                    </MenuItem>
+                </Menu>
             </div>
       </nav>
     )
@@ -93,7 +131,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.down(900)]: {
             flexDirection: 'column',
             height: 'auto',
-            marginTop: '0px',
+            marginTop: '10px',
         }
     },
     items: {
@@ -108,10 +146,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             marginRight: '60px',
         },
         [theme.breakpoints.down(900)]: {
-            width: '100%',
-            textAlign: 'center',
-            marginRight: '0px',
-            padding: '20px 0',
+            display: 'none'
         }
     },
     btn: {
