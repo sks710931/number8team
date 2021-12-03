@@ -152,7 +152,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginLeft: '20px',
         height: '50px',
         backgroundColor: '#000000',
-        width: '22vw',
+        width: '20vw',
         border: 'none',
         color: '#00ff18',
         fontSize: '1.5vw',
