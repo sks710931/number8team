@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { Theme } from "@mui/material";
+import { Button, TextField, Theme, Typography } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { ReactElement } from "react";
@@ -35,13 +35,13 @@ export const Home = (): ReactElement => {
     const classes = useStyles();
     const [current, setCurrent] = useState(0);
     const length = slides.length;
-  
+
     const nextSlide = () => {
-      setCurrent(current === length - 1 ? 0 : current + 1);
+        setCurrent(current === length - 1 ? 0 : current + 1);
     };
-  
+
     const prevSlide = () => {
-      setCurrent(current === 0 ? length - 1 : current - 1);
+        setCurrent(current === 0 ? length - 1 : current - 1);
     };
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -50,17 +50,25 @@ export const Home = (): ReactElement => {
                     <div className={classes.main}>
                         Welcome to Cryptovale--
                         The most fashionable town of the blockchain.
+                        <div className={classes.mintBox}>
+                            <Typography variant="h4" color="primary">Minted 200/4444</Typography>
+                            <Typography variant="caption" color="primary">0.04 WETH each</Typography>
+                            <Typography variant="caption" color="primary">5 per transaction, 10 per wallet</Typography>
+                            <div>
+                                <TextField className={classes.mintText} /> <Button className={classes.mintBtn} variant="contained">Mint</Button>
+                            </div>
+                        </div>
                     </div>
                 </Grid>
                 <Grid item xs={12} md={12} lg={6} xl={6}>
                     <StyledSlider>
                         <div className={classes.arrow} onClick={prevSlide}> &#60; </div>
                         {slides.map((slide, index) => {
-                        return (
-                            <div key={index}>
-                            {index === current && <SlideImage src={slide.image} alt="" />}
-                            </div>
-                        );
+                            return (
+                                <div key={index}>
+                                    {index === current && <SlideImage src={slide.image} alt="" />}
+                                </div>
+                            );
                         })}
                         <div className={classes.arrow} onClick={nextSlide}> &#62; </div>
                     </StyledSlider>
@@ -74,8 +82,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     main: {
         color: '#ffffff',
         fontSize: '35px',
-        textAlign:'center',
-        padding: '25% 0',
+        textAlign: 'center',
+        padding: '15% 0',
         width: '90%',
         [theme.breakpoints.down(900)]: {
             width: '100%',
@@ -89,5 +97,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.down(900)]: {
             fontSize: '25px',
         }
+    },
+    mintBox: {
+        display: 'flex',
+        justifyContent: 'flex-start !important',
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+        marginTop: 50,
+        padding:20,
+        '& span': {
+            fontSize: 20,
+            color: theme.palette.common.white
+        }
+    },
+    mintBtn:{
+        height: 55,
+        width: 100,
+    },
+    mintText:{
+        
     }
 }))

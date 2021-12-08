@@ -16,3 +16,7 @@ body {
   margin: 0;
   font-family: 'Vcr';
 }
+.MuiOutlinedInput-root{
+  /* background-color: white !important; */
+  border: '1px solid #fee900 !important';
+}

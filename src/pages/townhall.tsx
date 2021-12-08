@@ -91,6 +91,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '170%',
         maxWidth: '55vw',
         maxHeight: '90vh',
+        position:'absolute',
+        right: 0,
         [theme.breakpoints.down(900)]: {
             maxWidth: '96vw',
         }
