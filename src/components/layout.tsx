@@ -10,7 +10,7 @@ interface Props {
 export const Layout = ({children}: Props): ReactElement<Props> => {
     const classes = useStyles();
     return (
-        <div>
+        <div style={{height:'100%'}}>
             <div className={classes.pages}>
                 <Navbar/>
                 <div className={classes.content}>
@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     pages: {
       backgroundColor: '#ed3093',
       width: "100%",
+      height: '100%',
     //   display: "flex",
     },
     content: {
         marginTop: '3%',
         justifyContent: 'center',
-        minHeight: '100vh',
         width: '80%',
+        height: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
         [theme.breakpoints.down(900)]: {

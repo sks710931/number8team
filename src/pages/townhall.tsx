@@ -82,19 +82,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     imgdiv: {
         zIndex: '-10',
-        marginLeft: '-50%',
         [theme.breakpoints.down(900)]: {
             marginLeft: '3%',
         }
     },
     img:{
-        width: '170%',
-        maxWidth: '55vw',
-        maxHeight: '90vh',
+        width: 'auto',
+        maxHeight: 'calc(100vh - 207px)',
         position:'absolute',
         right: 0,
-        [theme.breakpoints.down(900)]: {
-            maxWidth: '96vw',
+        [theme.breakpoints.down(1499)]: {
+            maxHeight: 'calc(100vh - 165px)',
+        },
+        [theme.breakpoints.down(1199)]: {
+            position:'absolute',
+            top:170
         }
     },
     footer: {
