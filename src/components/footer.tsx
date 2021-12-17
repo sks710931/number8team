@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     footer: {
         width: '100%',
         position: 'fixed',
-        left: '80%',
+        left:'75%',
         bottom: '7%',
         display: 'flex',
         [theme.breakpoints.down(1050)]: {

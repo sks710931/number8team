@@ -89,8 +89,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     img:{
         width: 'auto',
         maxHeight: 'calc(100vh - 207px)',
-        position:'absolute',
+        position:'fixed',
         right: 0,
+        bottom:0,
         [theme.breakpoints.down(1499)]: {
             maxHeight: 'calc(100vh - 165px)',
         },
