@@ -7,11 +7,23 @@ import { Roadmap } from './pages/roadmap';
 import { Team } from './pages/team';
 import { Townhall } from './pages/townhall';
 import { Faq } from './pages/faq';
+import { useEagerConnect } from "./connectors/use-eager-connect";
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+
+function getLibrary(provider: any) {
+  const library = new Web3Provider(provider);
+  library.pollingInterval = 12000;
+  return library;
+}
+
 
 function App() {
+  useEagerConnect();
   return (
     <Router>
       <ThemeProvider theme={theme}>
+        <Web3ReactProvider getLibrary={getLibrary}>
         <Layout>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
@@ -21,6 +33,7 @@ function App() {
           <Route path="/faq" element={<Faq/>}></Route>
         </Routes>
         </Layout>
+        </Web3ReactProvider>
         </ThemeProvider>
     </Router>
   );

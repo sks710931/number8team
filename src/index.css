@@ -22,3 +22,9 @@ body {
   /* background-color: white !important; */
   border: '1px solid #fee900 !important';
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
