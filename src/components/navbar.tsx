@@ -34,11 +34,13 @@ export const Navbar = () => {
             "Selected network is not supported. Please switch your network to Polygon Mainnet"
           );
           break;
-        case "NoEthereumProviderError" : 
-            alert("You do not have metamask installed. Please install metamask to connect to the application.")
-            break;
+        case "NoEthereumProviderError":
+          alert(
+            "You do not have metamask installed. Please install metamask to connect to the application."
+          );
+          break;
         default:
-            alert(error)
+          alert(error);
           break;
       }
     }
@@ -167,6 +169,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   navbar: {
     display: "flex",
     justifyContent: "center",
+    alignItems: "end",
     [theme.breakpoints.down(900)]: {
       justifyContent: "space-around",
     },
@@ -202,7 +205,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   btn: {
     cursor: "pointer",
-    marginTop: "65px !important",
+    marginTop: "65px",
     display: "block",
     marginLeft: "20px",
     height: "50px",

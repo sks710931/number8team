@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     footer: {
         width: '100%',
         position: 'fixed',
-        left:'75%',
-        bottom: '7%',
+        left:'85%',
+        bottom: '4%',
         display: 'flex',
         [theme.breakpoints.down(1050)]: {
             left: '0',
@@ -31,9 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     logo: {
-        width: '60px',
-        height: '60px',
-        paddingRight: '20px',
+        width: '30px',
+        height: '30px',
+        paddingRight: '15px',
         cursor: 'pointer',
         [theme.breakpoints.down(900)]: {
             width: '40px',

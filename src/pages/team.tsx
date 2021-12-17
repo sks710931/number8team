@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 import image1 from '../assests/image1.jpeg';
+import { Footer } from "../components/footer";
 
 export const Team = (): ReactElement => {
     const classes = useStyles();
@@ -34,6 +35,9 @@ export const Team = (): ReactElement => {
                     </div>
                 </Grid>
             </Grid>
+            <div className={classes.footer}>
+                <Footer/>
+            </div>
         </Box>
     )
 }
@@ -50,6 +54,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             paddingBottom: '10px',
             marginInlineStart: '10px'
         }
+    },
+    footer:{
+        width: '90%',
     },
     imgdiv: {
         width: '100%',

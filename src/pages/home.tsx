@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { Button, MenuItem, Select, TextField, Theme, Typography } from "@mui/material";
+import { Button, MenuItem, Select, Theme, Typography } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactElement } from "react";
@@ -7,6 +7,7 @@ import image1 from "../assests/image1.jpeg";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { Footer } from "../components/footer";
 
 const SlideImage = styled.img`
   width: 100%;
@@ -101,6 +102,9 @@ export const Home = (): ReactElement => {
           </StyledSlider>
         </Grid>
       </Grid>
+      <div className={classes.footer}>
+                <Footer/>
+            </div>
     </Box>
   );
 };
@@ -116,6 +120,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: "100%",
       padding: "18% 0",
     },
+  },
+  footer:{
+      width:"90%"
   },
   mintInput:{
       display:"flex",
