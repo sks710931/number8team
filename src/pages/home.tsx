@@ -1,9 +1,13 @@
 import { makeStyles } from "@mui/styles";
 import { Button, MenuItem, Select, Theme, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactElement } from "react";
 import image1 from "../assests/image1.jpeg";
+import image2 from "../assests/3192.png";
+import image3 from "../assests/3380.png";
+import image4 from "../assests/4266.png";
+import image5 from "../assests/3417.png";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -30,21 +34,49 @@ const slides = [
   {
     image: image1,
   },
+  {
+    image: image2,
+  },
+  {
+    image: image3,
+  },
+  {
+    image: image4,
+  },
+  {
+    image: image5,
+  },
 ];
 
 export const Home = (): ReactElement => {
   const classes = useStyles();
   const [current, setCurrent] = useState(0);
   const [mints, setMints] = useState(1);
+  const [tick, setTick] = useState(0);
   const length = slides.length;
-
   const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+    const val = current === length - 1 ? 0 : current + 1
+    setCurrent(val);
   };
 
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
+
+  const timer = ()=> {
+    setTick(tick => tick+1);
+    console.log("called");
+    
+  }
+  useEffect(()=> {
+    const timed = setInterval(timer,3000);
+    return () => clearInterval(timed);
+  },[]);
+
+  useEffect(()=>{
+    nextSlide();
+  }, [tick])
+ 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
