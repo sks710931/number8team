@@ -76,6 +76,9 @@ export const Home = (): ReactElement => {
                   <MenuItem value={5}>5</MenuItem>
                 </Select>{" "}
                 <Button className={classes.mintBtn} variant="contained">
+                  Approve
+                </Button>
+                <Button className={classes.mintBtn} variant="contained">
                   Mint
                 </Button>
               </div>
