@@ -9,10 +9,10 @@ export const Footer = () => {
     const classes = useStyles();
     return(
         <div className={classes.footer}>
-            <img src={twitter} alt="twitter" className={classes.logo}/>
-            <img src={tiktok} alt="twitter" className={classes.logo}/>
-            <img src={opensea} alt="twitter" className={classes.logo}/>
-            <img src={discord} alt="twitter" className={classes.logo}/>
+            <a href="https://twitter.com/CRYPTOVALENFT" target="_blank" rel="noreferrer"><img src={twitter} alt="twitter" className={classes.logo}/></a>
+            <a href="https://www.tiktok.com/@cryptovalenft" target="_blank" rel="noreferrer"><img src={tiktok} alt="tiktok" className={classes.logo}/></a>
+            <a href="#"><img src={opensea} alt="opensea" className={classes.logo}/></a>
+            <a href="https://discord.gg/9bnShFvamD" target="_blank" rel="noreferrer"><img src={discord} alt="discord" className={classes.logo}/></a>
         </div>
     )
 }

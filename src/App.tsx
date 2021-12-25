@@ -10,6 +10,8 @@ import { Faq } from './pages/faq';
 import { useEagerConnect } from "./connectors/use-eager-connect";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function getLibrary(provider: any) {
   const library = new Web3Provider(provider);
@@ -24,6 +26,7 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <Web3ReactProvider getLibrary={getLibrary}>
+        <ToastContainer pauseOnHover />
         <Layout>
         <Routes>
           <Route path="/" element={<Home/>}></Route>

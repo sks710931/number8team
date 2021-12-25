@@ -1,2 +1,2 @@
-export const NFTContract = "0xC10e307f9d29aDdCe4C2916CFd194593Edce7D2A";
-export const WETH = "0x4EF8f245146AD7846707784C632E258B348f3CE7";
+export const NFTContract = "0xFeA4Cc51B838aa127d7a548b49d77AbaBBe9fE63";
+export const WETH = "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619";

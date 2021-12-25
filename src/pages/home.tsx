@@ -17,6 +17,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { NFTContract, WETH } from "../config/contract";
 import { formatEther, formatUnits, parseUnits } from "@ethersproject/units";
+import { toast } from "react-toastify";
 
 const SlideImage = styled.img`
   width: 100%;
@@ -107,14 +108,24 @@ export const Home = (): ReactElement => {
 
   const handleApprove = async () => {
     if (library && account) {
-      const signer = await library.getSigner();
-      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
-      const result = await WETHContract.approve(
-        NFTContract,
-        parseUnits((mints * mintPrice).toString(), "ether")
-      );
-      await result.wait();
-      setApprovedAmt(mints * mintPrice);
+      try{
+        const signer = await library.getSigner();
+        const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
+        const result = await WETHContract.approve(
+          NFTContract,
+          parseUnits((mints * mintPrice).toString(), "ether")
+        );
+        await result.wait();
+        setApprovedAmt(mints * mintPrice);
+        toast.success(`Approval for ${mints * mintPrice} WETH successful.`);
+      }
+      catch(err:any){
+        if (err.data && err.data.message) {
+          toast.error(err.data.message);
+        } else {
+          toast.error(err.message)
+        }
+      }
     } else {
       alert("Please connect your Metamask wallet to the application");
     }
@@ -139,34 +150,37 @@ export const Home = (): ReactElement => {
     }
   };
 
+  const mintNFT = async () => {
+    try {
+      const signer = await library.getSigner();
+      const NFT = new Contract(NFTContract, NFTAbi.abi, signer);
+      const result = await NFT.mint(account, mints);
+      await result.wait();
+      console.log(result);
+      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
+      const allowance = await WETHContract.allowance(account, NFTContract);
+      const aprvdAmt = Number(formatEther(allowance));
+      setApprovedAmt(aprvdAmt);
+      await getTotalMinted();
+      toast.success(`Successfully minted ${mints} cryptovale girls.`);
+      if (aprvdAmt >= mintPrice * mints) {
+        setApproveEnabled(false);
+        setMintEnabled(true);
+      } else {
+        setApproveEnabled(true);
+        setMintEnabled(false);
+      }
+    } catch (err: any) {
+      if (err.data && err.data.message) {
+        toast.error(err.data.message);
+      } else {
+        toast.error(err.message)
+      }
+    }
+  };
   const handleMint = async () => {
     if (library && account) {
-      try {
-        const signer = await library.getSigner();
-        const NFT = new Contract(NFTContract, NFTAbi.abi, signer);
-        const result = await NFT.mint(account, mints);
-        await result.wait();
-        const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
-        const allowance = await WETHContract.allowance(account, NFTContract);
-        const aprvdAmt = Number(formatEther(allowance));
-        setApprovedAmt(aprvdAmt);
-        await getTotalMinted();
-        console.log("minting successful");
-        if (aprvdAmt >= mintPrice * mints) {
-          setApproveEnabled(false);
-          setMintEnabled(true);
-        } else {
-          setApproveEnabled(true);
-          setMintEnabled(false);
-        }
-      } catch (err: any) {
-        if(err.data && err.data.message){
-          console.log(err.data.message)
-        }
-        else{
-          console.log(err.message);
-        }
-      }
+      await mintNFT();
     }
   };
   const getTotalMinted = async () => {
