@@ -1,17 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { makeStyles } from "@mui/styles";
 import { Button, MenuItem, Select, Theme, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactElement } from "react";
-import image1 from "../assests/image1.jpeg";
 import image2 from "../assests/3192.png";
 import image3 from "../assests/3380.png";
 import image4 from "../assests/4266.png";
 import image5 from "../assests/3417.png";
-
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import WETHAbi from "../abis/WETH.json";
+import NFTAbi from "../abis/NFT.json";
 import { Footer } from "../components/footer";
+import { useWeb3React } from "@web3-react/core";
+import { Contract } from "@ethersproject/contracts";
+import { NFTContract, WETH } from "../config/contract";
+import { formatEther, formatUnits, parseUnits } from "@ethersproject/units";
 
 const SlideImage = styled.img`
   width: 100%;
@@ -32,9 +37,6 @@ const StyledSlider = styled.div`
 
 const slides = [
   {
-    image: image1,
-  },
-  {
     image: image2,
   },
   {
@@ -52,10 +54,17 @@ export const Home = (): ReactElement => {
   const classes = useStyles();
   const [current, setCurrent] = useState(0);
   const [mints, setMints] = useState(1);
+  const [approvedAmt, setApprovedAmt] = useState(0);
   const [tick, setTick] = useState(0);
+  const { library, account } = useWeb3React();
+  const [totalMints, setTotalMints] = useState(0);
+  const [approveEnabled, setApproveEnabled] = useState(true);
+  const [mintEnabled, setMintEnabled] = useState(false);
+
   const length = slides.length;
+  const mintPrice = 0.04;
   const nextSlide = () => {
-    const val = current === length - 1 ? 0 : current + 1
+    const val = current === length - 1 ? 0 : current + 1;
     setCurrent(val);
   };
 
@@ -63,29 +72,129 @@ export const Home = (): ReactElement => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  const timer = ()=> {
-    setTick(tick => tick+1);
-    console.log("called");
-    
-  }
-  useEffect(()=> {
-    const timed = setInterval(timer,3000);
+  const timer = () => {
+    setTick((tick) => tick + 1);
+  };
+  useEffect(() => {
+    const timed = setInterval(timer, 3000);
     return () => clearInterval(timed);
-  },[]);
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     nextSlide();
-  }, [tick])
- 
+  }, [tick]);
+
+  useEffect(() => {
+    const getAllowance = async () => {
+      const signer = await library.getSigner();
+      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
+      const allowance = await WETHContract.allowance(account, NFTContract);
+      const aprvdAmt = Number(formatEther(allowance));
+      setApprovedAmt(aprvdAmt);
+      if (aprvdAmt >= mintPrice * mints) {
+        setApproveEnabled(false);
+        setMintEnabled(true);
+      } else {
+        setApproveEnabled(true);
+        setMintEnabled(false);
+      }
+      console.log(mintPrice);
+    };
+    if (library && account) {
+      getAllowance();
+    }
+  }, [library, account, approvedAmt]);
+
+  const handleApprove = async () => {
+    if (library && account) {
+      const signer = await library.getSigner();
+      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
+      const result = await WETHContract.approve(
+        NFTContract,
+        parseUnits((mints * mintPrice).toString(), "ether")
+      );
+      await result.wait();
+      setApprovedAmt(mints * mintPrice);
+    } else {
+      alert("Please connect your Metamask wallet to the application");
+    }
+  };
+
+  const handleSelectMintChange = async (num: number) => {
+    if (library && account) {
+      console.log(mintPrice * num);
+      const signer = await library.getSigner();
+      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
+      const allowance = await WETHContract.allowance(account, NFTContract);
+      const aprvdAmt = Number(formatEther(allowance));
+      setApprovedAmt(aprvdAmt);
+      console.log(aprvdAmt);
+      if (aprvdAmt >= mintPrice * num) {
+        setApproveEnabled(false);
+        setMintEnabled(true);
+      } else {
+        setApproveEnabled(true);
+        setMintEnabled(false);
+      }
+    }
+  };
+
+  const handleMint = async () => {
+    if (library && account) {
+      try {
+        const signer = await library.getSigner();
+        const NFT = new Contract(NFTContract, NFTAbi.abi, signer);
+        const result = await NFT.mint(account, mints);
+        await result.wait();
+        const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
+        const allowance = await WETHContract.allowance(account, NFTContract);
+        const aprvdAmt = Number(formatEther(allowance));
+        setApprovedAmt(aprvdAmt);
+        await getTotalMinted();
+        console.log("minting successful");
+        if (aprvdAmt >= mintPrice * mints) {
+          setApproveEnabled(false);
+          setMintEnabled(true);
+        } else {
+          setApproveEnabled(true);
+          setMintEnabled(false);
+        }
+      } catch (err: any) {
+        if(err.data && err.data.message){
+          console.log(err.data.message)
+        }
+        else{
+          console.log(err.message);
+        }
+      }
+    }
+  };
+  const getTotalMinted = async () => {
+    if (library) {
+      try {
+        const signer = await library.getSigner();
+        const NFT = new Contract(NFTContract, NFTAbi.abi, signer);
+        const totalMint = await NFT.totalMint();
+        setTotalMints(Number(formatUnits(totalMint, 0)));
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getTotalMinted();
+  }, [library]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={6} xl={6}>
           <div className={classes.main}>
-            Welcome to Cryptovale-- The most fashionable town of the blockchain.
+            Welcome to Cryptovale-- The most fashionable town on the blockchain.
             <div className={classes.mintBox}>
               <Typography variant="h4" color="primary">
-                Minted 200/4444
+                Minted {totalMints}/4444
               </Typography>
               <Typography variant="caption" color="primary">
                 0.04 WETH each
@@ -95,11 +204,14 @@ export const Home = (): ReactElement => {
               </Typography>
               <div className={classes.mintInput}>
                 <Select
-                color="primary"
-                    className={classes.select}
+                  color="primary"
+                  className={classes.select}
                   id="demo-simple-select"
                   value={mints}
-                  onChange={(e)=>setMints(e.target.value as number)}
+                  onChange={(e) => {
+                    setMints(e.target.value as number);
+                    handleSelectMintChange(e.target.value as number);
+                  }}
                 >
                   <MenuItem value={1}>1</MenuItem>
                   <MenuItem value={2}>2</MenuItem>
@@ -107,10 +219,20 @@ export const Home = (): ReactElement => {
                   <MenuItem value={4}>4</MenuItem>
                   <MenuItem value={5}>5</MenuItem>
                 </Select>{" "}
-                <Button className={classes.mintBtn} variant="contained">
+                <Button
+                  className={classes.mintBtn}
+                  onClick={handleApprove}
+                  variant="contained"
+                  disabled={!approveEnabled}
+                >
                   Approve
                 </Button>
-                <Button className={classes.mintBtn} variant="contained">
+                <Button
+                  disabled={!mintEnabled}
+                  className={classes.mintBtn}
+                  variant="contained"
+                  onClick={handleMint}
+                >
                   Mint
                 </Button>
               </div>
@@ -138,8 +260,8 @@ export const Home = (): ReactElement => {
         </Grid>
       </Grid>
       <div className={classes.footer}>
-                <Footer/>
-            </div>
+        <Footer />
+      </div>
     </Box>
   );
 };
@@ -156,19 +278,19 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: "18% 0",
     },
   },
-  footer:{
-      width:"90%"
+  footer: {
+    width: "90%",
   },
-  mintInput:{
-      display:"flex",
-    alignItems:"center",
-    justifyContent: "center"
+  mintInput: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  select:{
+  select: {
     marginRight: 15,
     width: 100,
     color: "yellow",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   arrow: {
     color: "#ffffff",
@@ -194,6 +316,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: 55,
     width: 100,
     fontSize: "1vw !important",
+    marginRight: "10px !important",
   },
   mintText: {},
 }));
