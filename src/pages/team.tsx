@@ -6,7 +6,7 @@ import { Theme } from "@mui/material";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-import image1 from '../assests/image1.jpeg';
+import image1 from '../assests/4371.png';
 import { Footer } from "../components/footer";
 
 export const Team = (): ReactElement => {

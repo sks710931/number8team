@@ -6,7 +6,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import logo from "../assests/logo.png";
+import logo from "../assests/cryptovalevector.svg";
 import Dot from "@mui/icons-material/FiberManualRecord";
 import { useWeb3React } from "@web3-react/core";
 import { injectedConnector } from "../connectors/injected-connector";
@@ -113,7 +113,7 @@ export const Navbar = () => {
             startIcon={
               <Dot fontSize="small" color={isConnected ? "inherit" : "error"} />
             }
-            className={classes.btn}
+            className={`${classes.btn} btn-connect`}
           >
             {isConnected ? shortenAddress(account!) : "CONNECT"}
           </Button>
@@ -213,12 +213,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "18vw",
     border: "none",
     color: "#00ff18 !important",
-    fontSize: "1.3vw !important",
+    fontSize: "20px",
     fontFamily: "Vcr",
     [theme.breakpoints.down(900)]: {
       marginTop: "50px",
       height: "45px",
-      fontSize: "3.5vw",
+      width: "25vw",
+    },
+    [theme.breakpoints.up(500)]: {
+      marginTop: "70px",
+      height: "45px",
       width: "25vw",
     },
   },
