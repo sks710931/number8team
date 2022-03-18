@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 import { ReactElement } from "react";
 import { Theme } from "@mui/material";
 
-import image from '../assests/townhallgirl.png';
+import image from '../assests/coin8.gif';
 
 import Grid from '@mui/material/Grid';
 import { Footer } from "../components/footer";
@@ -14,19 +14,16 @@ export const Townhall = (): ReactElement => {
     return (
         <div className={classes.top}>
             <div className={classes.header}>
-                TOWNHALL
+                ABOUT
             </div>
             <Grid container>
                 <Grid xs={12} md={12} lg={8} xl={8} style={{zIndex: '2'}}>
                     <div className={classes.txtdiv}>
                         <div className={classes.text}>
-                            Welcome to Cryptovale, the most fashionable town on the Polygon blockchain.
+                            Welcome to the #8 club.
                         </div>
                         <div className={classes.text}>
-                            Cryptovale is a collection of 4444 randomly generated stylish girls derived from over 300 hand drawn traits. The collection is inspired by Y2K fashion and the 2000s cartoons that shaped the childhood of our mayor and artist, Karlene.
-                        </div>
-                        <div className={classes.text}>
-                            Cryptovale gives collectors a unique piece of art, while also giving back to the community and making sure the NFT space represents and is accessible to everyone—not just a few. 
+                        The #8 Coin is a collection of 8888 unique NFTs on the Fantom Network. Its sole purpose is to reward its holders. The holders of #8 coin get chance to win the reward giveaways on the 8th, 18th, and 28th of each month.
                         </div>
                     </div>
                 </Grid>
@@ -90,8 +87,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: 'auto',
         maxHeight: 'calc(100vh - 207px)',
         position:'fixed',
-        right: 0,
-        bottom:0,
+        right: 100,
+        bottom:100,
         [theme.breakpoints.down(1499)]: {
             maxHeight: 'calc(100vh - 165px)',
         },

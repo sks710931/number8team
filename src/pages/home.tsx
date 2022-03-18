@@ -4,10 +4,7 @@ import { Button, MenuItem, Select, Theme, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactElement } from "react";
-import image2 from "../assests/3192.png";
-import image3 from "../assests/3380.png";
-import image4 from "../assests/4266.png";
-import image5 from "../assests/3417.png";
+import coin from "../assests/coin8.gif";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import WETHAbi from "../abis/WETH.json";
@@ -20,8 +17,7 @@ import { formatEther, formatUnits, parseUnits } from "@ethersproject/units";
 import { toast } from "react-toastify";
 
 const SlideImage = styled.img`
-  width: 100%;
-  height: 65vh;
+  width: 80%;
   object-fit: cover;
   @media only screen and (max-width: 900px) {
     height: 50vh;
@@ -36,54 +32,17 @@ const StyledSlider = styled.div`
   cursor: pointer;
 `;
 
-const slides = [
-  {
-    image: image2,
-  },
-  {
-    image: image3,
-  },
-  {
-    image: image4,
-  },
-  {
-    image: image5,
-  },
-];
-
 export const Home = (): ReactElement => {
   const classes = useStyles();
-  const [current, setCurrent] = useState(0);
   const [mints, setMints] = useState(1);
   const [approvedAmt, setApprovedAmt] = useState(0);
-  const [tick, setTick] = useState(0);
   const { library, account } = useWeb3React();
   const [totalMints, setTotalMints] = useState(0);
   const [approveEnabled, setApproveEnabled] = useState(true);
   const [mintEnabled, setMintEnabled] = useState(false);
 
-  const length = slides.length;
   const mintPrice = 0.04;
-  const nextSlide = () => {
-    const val = current === length - 1 ? 0 : current + 1;
-    setCurrent(val);
-  };
 
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
-  const timer = () => {
-    setTick((tick) => tick + 1);
-  };
-  useEffect(() => {
-    const timed = setInterval(timer, 3000);
-    return () => clearInterval(timed);
-  }, []);
-
-  useEffect(() => {
-    nextSlide();
-  }, [tick]);
 
   useEffect(() => {
     const getAllowance = async () => {
@@ -205,16 +164,16 @@ export const Home = (): ReactElement => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={6} xl={6}>
           <div className={classes.main}>
-            Welcome to Cryptovale-- The most fashionable town on the blockchain.
+            Welcome to The #8 Club.
             <div className={classes.mintBox}>
-              <Typography variant="h4" color="primary">
-                Minted {totalMints}/4444
+              <Typography variant="h4" className={classes.gold}>
+                Minted {totalMints}/8888
               </Typography>
               <Typography variant="caption" color="primary">
-                0.04 WETH each
+                88 $FTM each
               </Typography>
               <Typography variant="caption" color="primary">
-                5 per transaction, 10 per wallet
+                5 per transaction, 30 per wallet
               </Typography>
               <div className={classes.mintInput}>
                 <Select
@@ -234,7 +193,7 @@ export const Home = (): ReactElement => {
                   <MenuItem value={5}>5</MenuItem>
                 </Select>{" "}
                 <Button
-                  className={classes.mintBtn}
+                  className={classes.apprvBtn}
                   onClick={handleApprove}
                   variant="contained"
                   disabled={!approveEnabled}
@@ -255,21 +214,8 @@ export const Home = (): ReactElement => {
         </Grid>
         <Grid item xs={12} md={12} lg={6} xl={6}>
           <StyledSlider>
-            <div className={classes.arrow} onClick={prevSlide}>
-              {" "}
-              &#60;{" "}
-            </div>
-            {slides.map((slide, index) => {
-              return (
-                <div key={index}>
-                  {index === current && <SlideImage src={slide.image} alt="" />}
-                </div>
-              );
-            })}
-            <div className={classes.arrow} onClick={nextSlide}>
-              {" "}
-              &#62;{" "}
-            </div>
+            <SlideImage src={coin} alt="" />
+                
           </StyledSlider>
         </Grid>
       </Grid>
@@ -300,6 +246,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  gold:{
+    color:"#c7953e  !important",
+  },
   select: {
     marginRight: 15,
     width: 100,
@@ -320,6 +269,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "flex-start",
     flexDirection: "column",
     marginTop: 50,
+    marginLeft:"25px",
     padding: 20,
     "& span": {
       fontSize: 20,
@@ -331,6 +281,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 100,
     fontSize: "1vw !important",
     marginRight: "10px !important",
+    backgroundColor:"#c7953e !important",
+    '&:disabled':{
+      backgroundColor:"#d1aa66 !important"
+    }
+  },
+  apprvBtn: {
+    height: 55,
+    width: 100,
+    fontSize: "1vw !important",
+    marginRight: "10px !important",
+    backgroundColor:"#c7953e !important",
+    '&:disabled':{
+      backgroundColor:"#d1aa66 !important"
+    }
   },
   mintText: {},
 }));

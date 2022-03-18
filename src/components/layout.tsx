@@ -23,13 +23,12 @@ export const Layout = ({children}: Props): ReactElement<Props> => {
 
 const useStyles = makeStyles((theme: Theme) => ({
     pages: {
-      backgroundColor: '#ed3093',
+      backgroundColor: 'black',
       width: "100%",
       height: '100%',
     //   display: "flex",
     },
     content: {
-        marginTop: '3%',
         justifyContent: 'center',
         width: '80%',
         height: '100%',

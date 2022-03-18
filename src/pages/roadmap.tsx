@@ -20,25 +20,25 @@ export const Roadmap = (): ReactElement => {
                 <div className={classes.itemlist}>
                     <img src={twentyfive} alt="25" className={classes.img}/>
                     <div className={classes.desc}>
-                        GIVEAWAY of 5 GIRLS
+                    We will giveaway 10 #8 Coins to our Discord members and $100FTM to a random #8 Coin owner.
                     </div>
                 </div>
                 <div className={classes.itemlist}>
                     <img src={fifty} alt="50" className={classes.img}/>
                     <div className={classes.desc}>
-                        5% DONATED TO SUPPORT WOMEN’S HEALTH
+                    We will giveaway 10 #8 Coins to our Discord members and $300FTM to 3 random #8 Coin owners. ($100FTM per #8 Coin owner)
                     </div>
                 </div>
                 <div className={classes.itemlist}>
                     <img src={sevfive} alt="75" className={classes.img}/>
                     <div className={classes.desc}>
-                        GIVEAWAY of 10 GIRLS
+                    We will giveaway 10 #8 Coins to our Discord members and $500FTM to 5 random #8 Coin owners. ($100FTM per #8 Coin owner)
                     </div>
                 </div>
                 <div className={classes.itemlist}>
                     <img src={hundred} alt="hundred" className={classes.img}/>
                     <div className={classes.desc}>
-                    5% DONATED TO VICTIMS OF DOMESTIC VIOLENCE
+                    We will commence the Reward Giveaways. The first Reward Giveaways will be held on the 28th of commencing month. The first Reward Giveaways prize and winner will be double. $8,888 X2 and 10 Winners X2.
                     </div>
                 </div>
             </div>

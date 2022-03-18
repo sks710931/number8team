@@ -1,18 +1,16 @@
 import { makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
-import twitter from '../assests/twitterlogo.png';
-import tiktok from '../assests/tiktoklogo.png';
-import opensea from '../assests/opensealogo.png';
-import discord from '../assests/discordlogo.png';
+import twitter from '../assests/twittericon.svg';
+import opensea from '../assests/collection.png';
+import discord from '../assests/discord.svg';
 
 export const Footer = () => {
     const classes = useStyles();
     return(
         <div className={classes.footer}>
-            <a href="https://twitter.com/CRYPTOVALENFT" target="_blank" rel="noreferrer"><img src={twitter} alt="twitter" className={classes.logo}/></a>
-            <a href="https://www.tiktok.com/@cryptovalenft" target="_blank" rel="noreferrer"><img src={tiktok} alt="tiktok" className={classes.logo}/></a>
-            <a href="#"><img src={opensea} alt="opensea" className={classes.logo}/></a>
-            <a href="https://discord.gg/9bnShFvamD" target="_blank" rel="noreferrer"><img src={discord} alt="discord" className={classes.logo}/></a>
+            <a href="https://twitter.com/TheNumber8Club" target="_blank" rel="noreferrer"><img src={twitter} alt="twitter" className={classes.logo}/></a>
+            <a href="https://paintswap.com"><img src={opensea} alt="opensea" className={classes.logo}/></a>
+            <a href="https://discord.gg/qeDEHv4ga7" target="_blank" rel="noreferrer"><img src={discord} alt="discord" className={classes.logo}/></a>
         </div>
     )
 }

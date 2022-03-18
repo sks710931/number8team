@@ -9,6 +9,6 @@ export const theme = createTheme({
         },  
     },
     typography:{
-        fontFamily: "'Vcr', 'Excel'"
+        fontFamily: "'Roboto Slab', 'Excel'"
     }
 });

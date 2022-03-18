@@ -1,22 +1,9 @@
-@font-face {
-  font-family: 'Excel';
-  src: local('Excel'), url(./assests/Excelorate-Font-Y2K.otf) format('opentype');
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
-}
-
-@font-face {
-  font-family: 'Vcr';
-  src: local('Vcr'), url(./assests/VCR_OSD_MONO.ttf) format('truetype');
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 body {
   margin: 0;
-  font-family: 'Vcr';
+  font-family: 'Roboto Slab', serif !important;
   height: 100%;
-  background-color: #ed3093;
+  background-color: black;
 }
 .MuiOutlinedInput-root{
   /* background-color: white !important; */
