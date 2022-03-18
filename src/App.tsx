@@ -4,7 +4,6 @@ import { theme } from "./theme/theme";
 import { Layout } from "./components/layout";
 import { Home } from './pages/home';
 import { Roadmap } from './pages/roadmap';
-import { Team } from './pages/team';
 import { Townhall } from './pages/townhall';
 import { Faq } from './pages/faq';
 import { useEagerConnect } from "./connectors/use-eager-connect";
@@ -32,7 +31,6 @@ function App() {
           <Route path="/" element={<Home/>}></Route>
           <Route path="/about" element={<Townhall/>}></Route>
           <Route path="/roadmap" element={<Roadmap/>}></Route>
-          <Route path="/team" element={<Team/>}></Route>
           <Route path="/faq" element={<Faq/>}></Route>
         </Routes>
         </Layout>
