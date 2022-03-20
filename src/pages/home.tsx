@@ -12,7 +12,7 @@ import { Footer } from "../components/footer";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { FANTOM_RPC, NFTContract } from "../config/contract";
-import { formatEther, formatUnits, parseUnits } from "@ethersproject/units";
+import {  formatUnits, parseUnits } from "@ethersproject/units";
 import { toast } from "react-toastify";
 import { JsonRpcProvider } from "@ethersproject/providers";
 
