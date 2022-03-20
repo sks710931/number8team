@@ -27,7 +27,9 @@ export const Faq = (): ReactElement => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={12}>
-          <div className={classes.header}>FAQ</div>
+          <div className={classes.header}>
+          <Typography className={classes.about}>FAQ</Typography>
+          </div>
           <div className={classes.faq}>
             <div className={classes.txt}>
               <Accordion
@@ -43,7 +45,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     1. What is an NFT?
@@ -74,7 +76,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     2. What is The #8 Coin?
@@ -104,7 +106,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     3. Is there a presale?
@@ -134,7 +136,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     4. How many #8 coin NFTs can I mint?
@@ -163,7 +165,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     5. How much will #8 coin NFTs cost?
@@ -192,7 +194,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     6. Where does my NFT go after I purchase a #8 coin?
@@ -224,7 +226,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     7. What can I do with my #8 coin / How can I trade them?
@@ -255,7 +257,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     8. That sounds great, how do I get in?
@@ -292,7 +294,7 @@ export const Faq = (): ReactElement => {
                 >
                   <Typography
                     color="common.white"
-                    variant="h4"
+                    variant="h5"
                     sx={{ width: "70%", flexShrink: 0 }}
                   >
                     9. What about Tokenomics?
@@ -322,15 +324,30 @@ export const Faq = (): ReactElement => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  header: {
-    color: "#0000ff",
-    fontSize: "30px",
-    textAlign: "center",
-    [theme.breakpoints.down(900)]: {
-      fontSize: "25px",
-      paddingBottom: "10px",
+    header: {
+        color: '#0000ff',
+        fontSize: '30px',
+        textAlign: 'center',
+        fontWeight: '300',
+        height: '35px',
+        display: 'flex',
+        marginBottom:"50px",
+        marginTop: 60,
+        justifyContent: "center",
+        [theme.breakpoints.down(900)]: {
+            fontSize: '25px',
+            paddingBottom: '10px',
+            marginInlineStart: '10px'
+        }
     },
-  },
+    about:{
+        borderRadius: 5,
+        fontSize: '22px !important',
+        textTransform: "uppercase",
+        color:"black",
+        backgroundColor: "#c7953e",
+        width: "200px"
+    },
   faq: {
     margin: "25px auto 25px auto",
     backgroundColor: "#c7953e",

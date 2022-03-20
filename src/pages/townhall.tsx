@@ -1,8 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { ReactElement } from "react";
-import { Theme } from "@mui/material";
-
-import image from '../assests/coin8.gif';
+import { Theme, Typography } from "@mui/material";
 
 import Grid from '@mui/material/Grid';
 import { Footer } from "../components/footer";
@@ -14,10 +12,10 @@ export const Townhall = (): ReactElement => {
     return (
         <div className={classes.top}>
             <div className={classes.header}>
-                ABOUT
+                <Typography className={classes.about}>About</Typography>
             </div>
             <Grid container>
-                <Grid xs={12} md={12} lg={8} xl={8} style={{zIndex: '2'}}>
+                <Grid xs={12} md={12} lg={12} xl={12} style={{zIndex: '2'}}>
                     <div className={classes.txtdiv}>
                         <div className={classes.text}>
                             Welcome to the #8 club.
@@ -25,11 +23,6 @@ export const Townhall = (): ReactElement => {
                         <div className={classes.text}>
                         The #8 Coin is a collection of 8888 unique NFTs on the Fantom Network. Its sole purpose is to reward its holders. The holders of #8 coin get chance to win the reward giveaways on the 8th, 18th, and 28th of each month.
                         </div>
-                    </div>
-                </Grid>
-                <Grid xs={12} md={12} lg={4} xl={4}>
-                    <div className={classes.imgdiv}>
-                        <img src={image} alt="img" className={classes.img} />
                     </div>
                 </Grid>
             </Grid>
@@ -51,11 +44,22 @@ const useStyles = makeStyles((theme: Theme) => ({
         textAlign: 'center',
         fontWeight: '300',
         height: '35px',
+        display: 'flex',
+        marginTop: 60,
+        justifyContent: "center",
         [theme.breakpoints.down(900)]: {
             fontSize: '25px',
             paddingBottom: '10px',
             marginInlineStart: '10px'
         }
+    },
+    about:{
+        borderRadius: 5,
+        fontSize: '22px !important',
+        textTransform: "uppercase",
+        color:"black",
+        backgroundColor: "#c7953e",
+        width: "200px"
     },
     txtdiv: {
         paddingTop: '40px',

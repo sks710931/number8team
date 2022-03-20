@@ -43,7 +43,6 @@ export const Home = (): ReactElement => {
 
   const mintPrice = 0.04;
 
-
   useEffect(() => {
     const getAllowance = async () => {
       const signer = await library.getSigner();
@@ -67,7 +66,7 @@ export const Home = (): ReactElement => {
 
   const handleApprove = async () => {
     if (library && account) {
-      try{
+      try {
         const signer = await library.getSigner();
         const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
         const result = await WETHContract.approve(
@@ -77,12 +76,11 @@ export const Home = (): ReactElement => {
         await result.wait();
         setApprovedAmt(mints * mintPrice);
         toast.success(`Approval for ${mints * mintPrice} WETH successful.`);
-      }
-      catch(err:any){
+      } catch (err: any) {
         if (err.data && err.data.message) {
           toast.error(err.data.message);
         } else {
-          toast.error(err.message)
+          toast.error(err.message);
         }
       }
     } else {
@@ -133,7 +131,7 @@ export const Home = (): ReactElement => {
       if (err.data && err.data.message) {
         toast.error(err.data.message);
       } else {
-        toast.error(err.message)
+        toast.error(err.message);
       }
     }
   };
@@ -215,7 +213,6 @@ export const Home = (): ReactElement => {
         <Grid item xs={12} md={12} lg={6} xl={6}>
           <StyledSlider>
             <SlideImage src={coin} alt="" />
-                
           </StyledSlider>
         </Grid>
       </Grid>
@@ -230,12 +227,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   main: {
     color: "#ffffff",
     fontSize: "35px",
-    textAlign: "center",
     padding: "15% 0",
     width: "90%",
     [theme.breakpoints.down(900)]: {
       width: "100%",
       padding: "18% 0",
+      textAlign: "center",
     },
   },
   footer: {
@@ -246,8 +243,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  gold:{
-    color:"#c7953e  !important",
+  gold: {
+    color: "#c7953e  !important",
   },
   select: {
     marginRight: 15,
@@ -269,8 +266,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "flex-start",
     flexDirection: "column",
     marginTop: 50,
-    marginLeft:"25px",
-    padding: 20,
+    [theme.breakpoints.down(900)]: {
+      padding: 25,
+    },
     "& span": {
       fontSize: 20,
       color: theme.palette.common.white,
@@ -281,20 +279,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 100,
     fontSize: "1vw !important",
     marginRight: "10px !important",
-    backgroundColor:"#c7953e !important",
-    '&:disabled':{
-      backgroundColor:"#d1aa66 !important"
-    }
+    backgroundColor: "#c7953e !important",
+    "&:disabled": {
+      backgroundColor: "#d1aa66 !important",
+    },
   },
   apprvBtn: {
     height: 55,
     width: 100,
     fontSize: "1vw !important",
     marginRight: "10px !important",
-    backgroundColor:"#c7953e !important",
-    '&:disabled':{
-      backgroundColor:"#d1aa66 !important"
-    }
+    backgroundColor: "#c7953e !important",
+    "&:disabled": {
+      backgroundColor: "#d1aa66 !important",
+    },
   },
   mintText: {},
 }));

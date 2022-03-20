@@ -9,8 +9,8 @@ export const Footer = () => {
     return(
         <div className={classes.footer}>
             <a href="https://twitter.com/TheNumber8Club" target="_blank" rel="noreferrer"><img src={twitter} alt="twitter" className={classes.logo}/></a>
-            <a href="https://paintswap.com"><img src={opensea} alt="opensea" className={classes.logo}/></a>
             <a href="https://discord.gg/qeDEHv4ga7" target="_blank" rel="noreferrer"><img src={discord} alt="discord" className={classes.logo}/></a>
+            <a href="https://paintswap.com"><img src={opensea} alt="opensea" className={classes.logo}/></a>
         </div>
     )
 }

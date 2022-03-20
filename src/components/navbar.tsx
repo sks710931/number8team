@@ -100,7 +100,9 @@ export const Navbar = () => {
             </li>
           </ul>
         )}
-        <div style={{ display: "flex" }}>
+        
+      </div>
+      <div style={{ display: "flex", justifyContent: "flex-end", width:'100%' }}>
           <Button
             onClick={handleConnect}
             variant="contained"
@@ -140,7 +142,6 @@ export const Navbar = () => {
             Faq
           </MenuItem>
         </Menu>
-      </div>
     </nav>
   );
 };
@@ -149,13 +150,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   nav: {
     // position: 'fixed',
     // top: 0,
-    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "80%",
     backgroundColor: "black",
     height:120,
-    marginTop: '6.5vh'
+    marginTop: '1.5vh',
+    marginLeft: '10%',
+    marginRight: '10%'
   },
   navbar: {
-    width:"100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -167,7 +172,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     listStyleType: "none",
     height: "100%",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     position: "relative",
     [theme.breakpoints.down(900)]: {
@@ -178,14 +183,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   items: {
     marginRight: "40px",
-    fontSize: "2vw",
+    fontSize: "20px",
     color: "white",
     cursor: "pointer",
     fontFamily: "'Roboto Slab', serif",
     textDecoration: "none",
     textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
     [theme.breakpoints.up(1500)]: {
-      marginRight: "110px",
+      marginRight: "60px",
     },
     [theme.breakpoints.down(900)]: {
       display: "none",

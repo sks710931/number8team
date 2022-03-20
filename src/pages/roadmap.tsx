@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
-import { ReactElement } from "react";
-import { Theme } from "@mui/material";
+import React, { ReactElement } from "react";
+import { Theme, Typography } from "@mui/material";
 
 import twentyfive from '../assests/25.png';
 import fifty from '../assests/50.png';
@@ -14,7 +14,7 @@ export const Roadmap = (): ReactElement => {
     return (
         <div className={classes.top}>
             <div className={classes.header}>
-                ROAD MAP
+            <Typography className={classes.about}>Road Map</Typography>
             </div>
             <div className={classes.items}>
                 <div className={classes.itemlist}>
@@ -59,12 +59,22 @@ const useStyles = makeStyles((theme: Theme) => ({
         textAlign: 'center',
         fontWeight: '300',
         height: '35px',
-        marginBottom: '20px',
+        display: 'flex',
+        marginTop: 60,
+        justifyContent: "center",
         [theme.breakpoints.down(900)]: {
             fontSize: '25px',
             paddingBottom: '10px',
             marginInlineStart: '10px'
         }
+    },
+    about:{
+        borderRadius: 5,
+        fontSize: '22px !important',
+        textTransform: "uppercase",
+        color:"black",
+        backgroundColor: "#c7953e",
+        width: "200px"
     },
     items: {
         width: '80%',
@@ -91,12 +101,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     desc:{
         marginLeft: '60px',
-        fontSize: '30px',
+        fontSize: '20px',
         color: '#ffffff',
         alignSelf: 'center',
         [theme.breakpoints.down(900)]: {
             marginLeft: '10px',
-            fontSize: '25px',
+            fontSize: '18px',
             letterSpacing: '3px'
         }
     },
