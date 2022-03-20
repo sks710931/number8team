@@ -7,14 +7,14 @@ import { ReactElement } from "react";
 import coin from "../assests/coin8.gif";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import WETHAbi from "../abis/WETH.json";
 import NFTAbi from "../abis/NFT.json";
 import { Footer } from "../components/footer";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
-import { NFTContract, WETH } from "../config/contract";
+import { FANTOM_RPC, NFTContract } from "../config/contract";
 import { formatEther, formatUnits, parseUnits } from "@ethersproject/units";
 import { toast } from "react-toastify";
+import { JsonRpcProvider } from "@ethersproject/providers";
 
 const SlideImage = styled.img`
   width: 80%;
@@ -35,98 +35,27 @@ const StyledSlider = styled.div`
 export const Home = (): ReactElement => {
   const classes = useStyles();
   const [mints, setMints] = useState(1);
-  const [approvedAmt, setApprovedAmt] = useState(0);
   const { library, account } = useWeb3React();
   const [totalMints, setTotalMints] = useState(0);
-  const [approveEnabled, setApproveEnabled] = useState(true);
-  const [mintEnabled, setMintEnabled] = useState(false);
+  const [mintPrice, setMintPrice] = useState(0);
 
-  const mintPrice = 0.04;
-
-  useEffect(() => {
-    const getAllowance = async () => {
-      const signer = await library.getSigner();
-      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
-      const allowance = await WETHContract.allowance(account, NFTContract);
-      const aprvdAmt = Number(formatEther(allowance));
-      setApprovedAmt(aprvdAmt);
-      if (aprvdAmt >= mintPrice * mints) {
-        setApproveEnabled(false);
-        setMintEnabled(true);
-      } else {
-        setApproveEnabled(true);
-        setMintEnabled(false);
-      }
-      console.log(mintPrice);
-    };
-    if (library && account) {
-      getAllowance();
-    }
-  }, [library, account, approvedAmt]);
-
-  const handleApprove = async () => {
-    if (library && account) {
-      try {
-        const signer = await library.getSigner();
-        const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
-        const result = await WETHContract.approve(
-          NFTContract,
-          parseUnits((mints * mintPrice).toString(), "ether")
-        );
-        await result.wait();
-        setApprovedAmt(mints * mintPrice);
-        toast.success(`Approval for ${mints * mintPrice} WETH successful.`);
-      } catch (err: any) {
-        if (err.data && err.data.message) {
-          toast.error(err.data.message);
-        } else {
-          toast.error(err.message);
-        }
-      }
-    } else {
-      alert("Please connect your Metamask wallet to the application");
-    }
-  };
-
-  const handleSelectMintChange = async (num: number) => {
-    if (library && account) {
-      console.log(mintPrice * num);
-      const signer = await library.getSigner();
-      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
-      const allowance = await WETHContract.allowance(account, NFTContract);
-      const aprvdAmt = Number(formatEther(allowance));
-      setApprovedAmt(aprvdAmt);
-      console.log(aprvdAmt);
-      if (aprvdAmt >= mintPrice * num) {
-        setApproveEnabled(false);
-        setMintEnabled(true);
-      } else {
-        setApproveEnabled(true);
-        setMintEnabled(false);
-      }
-    }
+  const getSalePriceValue = () => {
+    const price = mints * mintPrice;
+    return price.toString();
   };
 
   const mintNFT = async () => {
     try {
       const signer = await library.getSigner();
       const NFT = new Contract(NFTContract, NFTAbi.abi, signer);
-      const result = await NFT.mint(account, mints);
+      let overRides = {
+        value: parseUnits(getSalePriceValue(), "ether"),
+      };
+      const result = await NFT.mint(mints, overRides);
       await result.wait();
       console.log(result);
-      const WETHContract = new Contract(WETH, WETHAbi.abi, signer);
-      const allowance = await WETHContract.allowance(account, NFTContract);
-      const aprvdAmt = Number(formatEther(allowance));
-      setApprovedAmt(aprvdAmt);
       await getTotalMinted();
-      toast.success(`Successfully minted ${mints} cryptovale girls.`);
-      if (aprvdAmt >= mintPrice * mints) {
-        setApproveEnabled(false);
-        setMintEnabled(true);
-      } else {
-        setApproveEnabled(true);
-        setMintEnabled(false);
-      }
+      toast.success(`Successfully minted ${mints} The #8 Club NFT's.`);
     } catch (err: any) {
       if (err.data && err.data.message) {
         toast.error(err.data.message);
@@ -139,23 +68,30 @@ export const Home = (): ReactElement => {
     if (library && account) {
       await mintNFT();
     }
+    else{
+      toast.error("Please connect to your wallet to start minting.")
+    }
   };
   const getTotalMinted = async () => {
-    if (library) {
-      try {
-        const signer = await library.getSigner();
-        const NFT = new Contract(NFTContract, NFTAbi.abi, signer);
-        const totalMint = await NFT.totalMint();
-        setTotalMints(Number(formatUnits(totalMint, 0)));
-      } catch (err) {
-        alert(err);
-      }
+    try {
+      const provider = new JsonRpcProvider(FANTOM_RPC);
+      const NFT = new Contract(NFTContract, NFTAbi.abi, provider);
+      NFT.on("CreateTheNumber8Club", async () => {
+        const mint2 = await NFT.totalSupply();
+        setTotalMints(Number(formatUnits(mint2, 0)));
+    });
+      const totalMint = await NFT.totalSupply();
+      setTotalMints(Number(formatUnits(totalMint, 0)));
+      const mp = await NFT.salePrice(1);
+      setMintPrice(Number(formatUnits(mp, "ether")));
+    } catch (err) {
+      alert(err);
     }
   };
 
   useEffect(() => {
     getTotalMinted();
-  }, [library]);
+  }, []);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -181,7 +117,6 @@ export const Home = (): ReactElement => {
                   value={mints}
                   onChange={(e) => {
                     setMints(e.target.value as number);
-                    handleSelectMintChange(e.target.value as number);
                   }}
                 >
                   <MenuItem value={1}>1</MenuItem>
@@ -191,15 +126,6 @@ export const Home = (): ReactElement => {
                   <MenuItem value={5}>5</MenuItem>
                 </Select>{" "}
                 <Button
-                  className={classes.apprvBtn}
-                  onClick={handleApprove}
-                  variant="contained"
-                  disabled={!approveEnabled}
-                >
-                  Approve
-                </Button>
-                <Button
-                  disabled={!mintEnabled}
                   className={classes.mintBtn}
                   variant="contained"
                   onClick={handleMint}
@@ -276,17 +202,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   mintBtn: {
     height: 55,
-    width: 100,
-    fontSize: "1vw !important",
-    marginRight: "10px !important",
-    backgroundColor: "#c7953e !important",
-    "&:disabled": {
-      backgroundColor: "#d1aa66 !important",
-    },
-  },
-  apprvBtn: {
-    height: 55,
-    width: 100,
+    width: 200,
     fontSize: "1vw !important",
     marginRight: "10px !important",
     backgroundColor: "#c7953e !important",
