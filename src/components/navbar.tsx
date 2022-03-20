@@ -132,8 +132,8 @@ export const Navbar = () => {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem component={Link} to="/townhall" onClick={handleClose}>
-            Townhall
+          <MenuItem component={Link} to="/about" onClick={handleClose}>
+            About
           </MenuItem>
           <MenuItem component={Link} to="/roadmap" onClick={handleClose}>
             Roadmap
