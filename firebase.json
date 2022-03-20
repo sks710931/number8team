@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "cryptovale",
     "public": "build",
     "ignore": [
       "firebase.json",

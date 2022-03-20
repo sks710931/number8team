@@ -31,7 +31,7 @@ export const Navbar = () => {
       switch (error.name) {
         case "UnsupportedChainIdError":
           alert(
-            "Selected network is not supported. Please switch your network to Polygon Mainnet"
+            "Selected network is not supported. Please switch your network to Fantom Mainnet"
           );
           break;
         case "NoEthereumProviderError":
