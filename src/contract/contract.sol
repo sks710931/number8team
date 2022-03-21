@@ -1022,7 +1022,7 @@ contract TheNumber8Club is ERC721Enumerable, Ownable {
 
     bool public isPaused = false;
     uint256 private _reservedCount = 0;
-    uint256 private _reserveAtATime = 10;
+    uint256 private _reserveAtATime = 100;
 
     string public baseTokenURI;
 
